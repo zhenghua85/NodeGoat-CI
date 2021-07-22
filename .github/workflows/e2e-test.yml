@@ -35,16 +35,6 @@ jobs:
           npm ci
           npm run cy:verify
 
-      - name: Start MongoDB
-        run: |
-          docker run -d -p 27017:27017 mongo:4.0
-          timeout 60s bash -c 'until nc -z -w 2 localhost 27017 && echo MongoDB ready; do sleep 2; done'
-
-      - name: Run E2E test suite
-        run: |
-          NODE_ENV=test npm start -- --silent &
-          npm run test:ci
-
       - name: Download Scantist-Bom-Detect
         run: curl -s https://scripts.scantist.com/scantist-bom-detect.jar --output scantist-bom-detect.jar
       
